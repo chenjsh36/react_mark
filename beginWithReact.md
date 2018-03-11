@@ -46,16 +46,16 @@ ReactDOM.render(rootElement, document.getElementById('react-app'));
 
 # React 是什么？
 
-React 强调自己  只是 MVC  的 V  层，所以  拿 react 和 Angular 或者 Ember 比较是不合理的，那么它被创建出来的目的是什么？优势是什么？缺点是什么？应该拿什么和它比较才合适？
+React 强调自己只是 MVC 的 V 层，所以 拿 react 和 Angular 或者 Ember 比较是不合理的，那么它被创建出来的目的是什么？优势是什么？缺点是什么？应该拿什么和它比较才合适？
 
 ## React 的一些关键点
 
 \* JSX--在 JS 脚本里面写 HTML，JSX 会将 html 转化为脚本对象
 
 * Virtual-DOM JavaScript 模拟的 DOM 树
-* React.createClass--创建一个新组件（16 后  废弃了,  使用 create-react-class 或者 ES6 语法创建)
+* React.createClass--创建一个新组件（16 后 废弃了, 使用 create-react-class 或者 ES6 语法创建)
 * render
-* ReactDOM.render--将指定组件渲染到对应的  DOM 节点
+* ReactDOM.render--将指定组件渲染到对应的 DOM 节点
 * state-- 组件内部数据存放的地方
 * getInitialState-- 设置组件初始值的方法
 * setState
@@ -101,13 +101,13 @@ var HelloWorld = React.createClass({
 });
 ```
 
-##  关于 VirtualDOM
+## 关于 VirtualDOM
 
 [React then isolates the changes between the old and new virtual DOM and then only updates the real DOM with the necessary changes](https://www.youtube.com/watch?v=-DX3vJiqxm4)
 
 ## React.createClass
 
-16 版本  已经废弃，现在创建 class 有两种方法
+16 版本 已经废弃，现在创建 class 有两种方法
 
 * 采用 es6 语法 [codepen]()
 
@@ -262,7 +262,7 @@ st->1->2->3->4->5->e
 
 [codepen](https://codepen.io/chenjsh36/pen/ZxGbrO?editors=1111)
 
-* 首次加载触发 mounting  流程
+* 首次加载触发 mounting 流程
 
 * 点击 add 按钮触发 update 流程
 

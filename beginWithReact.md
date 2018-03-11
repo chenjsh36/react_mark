@@ -50,7 +50,7 @@ React 强调自己只是 MVC 的 V 层，所以 拿 react 和 Angular 或者 Emb
 
 ## React 的一些关键点
 
-\* JSX--在 JS 脚本里面写 HTML，JSX 会将 html 转化为脚本对象
+JSX--在 JS 脚本里面写 HTML，JSX 会将 html 转化为脚本对象
 
 * Virtual-DOM JavaScript 模拟的 DOM 树
 * React.createClass--创建一个新组件（16 后 废弃了, 使用 create-react-class 或者 ES6 语法创建)

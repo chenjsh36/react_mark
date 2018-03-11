@@ -1,4 +1,4 @@
-# Hello world !
+world !
 
 使用 React.render 渲染 “hello world！”
 
@@ -50,19 +50,19 @@ React 强调自己只是 MVC 的 V 层，所以 拿 react 和 Angular 或者 Emb
 
 ## React 的一些关键点
 
-JSX:在 JS 脚本里面写 HTML，JSX 会将 html 转化为脚本对象
+JSX:在 JS 脚本里面写 HTML，JSX 会将 html 转化为脚本对象
 
 * Virtual-DOM JavaScript 模拟的 DOM 树
 * React.createClass--创建一个新组件（16 后 废弃了, 使用 create-react-class 或者 ES6 语法创建)
 * render
 * ReactDOM.render--将指定组件渲染到对应的 DOM 节点
 * state--组件内部数据存放的地方
-* getInitialState-- 设置组件初始值的方法
+* getInitialState-- 设置组件初始值的方法
 * setState
 * props--组件传递数据的方式
-  * propTypes-- 控制传递给子组件的 props 格
+  * propTypes-- 控制传递给子组件的 props 格
   * getDefaultProps--设置初始 props
-* LifeCycle
+* LifeCycle
   * componentWillMount — Fired before the component will mount
   * componentDidMount — Fired after the component mounted
   * componentWillReceiveProps — Fired whenever there is a change to props
@@ -74,7 +74,7 @@ React 强调自己只是 MVC 的 V 层，所以 拿 react 和 Angular 或者 Emb
 
 ## 为什么是 ReactDom.render 而不是 React.js ?
 
-14 版本前为 React.render, 后来才改为 ReactDom.render， 让 React 更加模块化，且不仅仅只能在 Dom 上进行渲染
+14 版本前为 React.render, 后来才改为 ReactDom.render， 让 React 更加模块化，且不仅仅只能在 Dom 上进行渲染
 
 ## 为什么要将 HTML 和 javascript 融合在一起 ？
 
@@ -105,7 +105,7 @@ var HelloWorld = React.createClass({
 
 [React then isolates the changes between the old and new virtual DOM and then only updates the real DOM with the necessary changes](https://www.youtube.com/watch?v=-DX3vJiqxm4)
 
-## React.createClass
+## React.createClass
 
 16 版本 已经废弃，现在创建 class 有两种方法
 
@@ -208,8 +208,6 @@ class Element extends React.Component {
 ReactDOM.render(<Element />, document.getElementById('root'));
 ```
 
-
-
 ## Life Cycle
 
 [The Component Lifecycle](https://reactjs.org/docs/react-component.html#the-component-lifecycle)
@@ -268,4 +266,4 @@ st->1->2->3->4->5->e
 
 * 点击 清空列表 触发 unmounting 流程
 
-* 输入 error ，点击 add 按钮，触发 error handing 流程
+* 输入 error ，点击 add 按钮，触发 error handing 流程

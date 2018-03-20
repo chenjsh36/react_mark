@@ -69,7 +69,7 @@ import isPlainObject from './utils/isPlainObject'
  * 通过当前的 state 和 action 返回下一个 state 树
  *
  * @param {any} [preloadedState]
- * 初始化 state 数据，可选的参数，如果需要融合来自服务器的数据或者来自之前用户的 session 等情况下可以使用，如果你使用 combineReducers 来生成顶级 reducer ，那么preloadedState 必须为对象
+ * 初始化 state 数据，可选的参数，如果需要融合来自服务器的数据或者来自之前用户的 session 等情况下可以使用，如果你使用 combineReducers 来生成顶级 reducer ，那么preloadedState 必须为对象
  *
  * @param {Function} [enhancer]
  * store 的增强器函数，可以指定为 第三方的中间件，时间旅行，持久化等等，但是这个函数只能用 Redux 提供的 applyMiddleware 函数来生成；
@@ -79,7 +79,7 @@ import isPlainObject from './utils/isPlainObject'
  * 调用完返回一个Redux Store供开发者获取 state 和 触发 action 以及监听状态改变
  */
 export default function createStore(reducer, preloadedState, enhancer) {
-  // 根据参数个数，来指定 reducer、preloadedState 和 enhancer
+  // 根据参数个数，来指定 reducer、preloadedState 和 enhancer
   if (typeof preloadedState === 'function' && typeof enhancer === 'undefined') {
     enhancer = preloadedState
     preloadedState = undefined
@@ -103,7 +103,7 @@ export default function createStore(reducer, preloadedState, enhancer) {
   let nextListeners = currentListeners
   let isDispatching = false
 
-  // 根据当前的监听函数的列表生成新的下一个监听函数列表的引用
+  // 根据当前的监听函数的列表生成新的下一个监听函数列表的引用
   function ensureCanMutateNextListeners() {
     if (nextListeners === currentListeners) {
       nextListeners = currentListeners.slice()
@@ -141,7 +141,7 @@ export default function createStore(reducer, preloadedState, enhancer) {
 }
 ```
 
-createStore 的功能和参数在代码注释中已经解释了，接下来看下里面实现的几个参数：
+createStore 的功能和参数在代码注释中已经解释了，接下来看下里面实现的几个参数：
 
 #### getState
 
@@ -229,7 +229,7 @@ function getState() {
     // 对抛出 error 的兼容，但是无论如何都会继续执行 isDispatching = false 的操作
     try {
       isDispatching = true
-      // 调用 reducer 处理当前状态和 action，然后将当前状态放回 currentState
+      // 调用 reducer 处理当前状态和 action，然后将当前状态放回 currentState
       currentState = currentReducer(currentState, action)
     } finally {
       isDispatching = false
@@ -245,7 +245,7 @@ function getState() {
   }
 ```
 
-dispatch用于触发状态改变，接受 action 作为参数，并判断 action是否为对象（isPlainObject)且含有 type 属性，然后调用 **currentReducer** 来 生成新的状态，最后遍历监听函数的列表，依次执行并返回 action
+dispatch用于触发状态改变，接受 action 作为参数，并判断 action是否为对象（isPlainObject)且含有 type 属性，然后调用 **currentReducer** 来 生成新的状态，最后遍历监听函数的列表，依次执行并返回 action
 
 #### replaceReducer
 
@@ -384,9 +384,9 @@ export default function applyMiddleware(...middlewares) {
 ```
 从函数可以看到执行过程通过 ```applyMiddleware(middlewares)(createStore)(reducer, preloadState, enhancer)``` 最后得到 **store** 和新的 **dispacth**
 
-比较特别的是传给 chain 中中间件的 dispatch 是一个空函数，表示中间件在构造的时候是不允许生成 action 的，因为其他中间件无法对该 action 做出响应
+比较特别的是传给 chain 中中间件的 dispatch 是一个空函数，表示中间件在构造的时候是不允许生成 action 的，因为其他中间件无法对该 action 做出响应
 
-最后返回的 dispatch 不是原来的 dispatch，而是经过所有中间件组合后放回的 dispatch
+最后返回的 dispatch 不是原来的 dispatch，而是经过所有中间件组合后放回的 dispatch
 
 ### combineReducers.js
 ``` javascript
@@ -414,7 +414,7 @@ export default function combineReducers(reducers) {
     unexpectedKeyCache = {}
   }
 
-  // 确保 reducer 在初始化和对定义外的 action 的处理是否正常
+  // 确保 reducer 在初始化和对定义外的 action 的处理是否正常
   let shapeAssertionError
   try {
     assertReducerShape(finalReducers)
@@ -453,17 +453,17 @@ export default function combineReducers(reducers) {
 }
 
 ```
-最终返回的**combine** 函数才是真正的 reducer ，每次对传入的 action 都会遍历 finalReducerKeys 的 **key**
+最终返回的**combine** 函数才是真正的 reducer ，每次对传入的 action 都会遍历 finalReducerKeys 的 **key**
 
-先通过 **key** 获得之前的状态：```previousStateForKey = state[key]```
+先通过 **key** 获得之前的状态：```previousStateForKey = state[key]```
 
-从这行代码可以明白为什么传入的 key 必须为 state 对应的变量名
+从这行代码可以明白为什么传入的 key 必须为 state 对应的变量名
 
-然后拿到下一个状态的： ```nextStateForKey = reducer(previousStateForKey, action)```
+然后拿到下一个状态的： ```nextStateForKey = reducer(previousStateForKey, action)```
 
-再更新新的 key 对应的值： ```nextState[key] = nextStateForKey```
+再更新新的 key 对应的值： ```nextState[key] = nextStateForKey```
 
-每次判断有修改：```hasChanged = hasChanged || nextStateForKey !== previousStateForKey```
+每次判断有修改：```hasChanged = hasChanged || nextStateForKey !== previousStateForKey```
 
 最后如果 hasChanged 为 true 则返回 nextState, 否则返回原来的 state
 
@@ -513,20 +513,20 @@ let actionCreate = (text) => {
 store.dispatch(actionCreate('hello world'))
 ```
 
-而 bindActionCreators 则是帮我们节省了 **store.dispatch** 的调用：
+而 bindActionCreators 则是帮我们节省了 **store.dispatch** 的调用：
 ``` javascript
 let bindActionCreate = bindActionCreators(actionCreate, store.dispatch)
 //触发 action：
 bindActionCreate('hello world')
 ```
 
-具体就是接收传入的 action 生成器和 store.dispatch, 返回一个执行便触发绑定了这两者的函数：
+具体就是接收传入的 action 生成器和 store.dispatch, 返回一个执行便触发绑定了这两者的函数：
 
 ``` javascript
 return function() { return dispatch(actionCreator.apply(this, arguments)) }
 ```
 
-如果传入的是对象，则遍历所有的 key，依次进行绑定从而实现如下的效果：
+如果传入的是对象，则遍历所有的 key，依次进行绑定从而实现如下的效果：
 
 ``` javascript
 let obj = {

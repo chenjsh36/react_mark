@@ -1,6 +1,6 @@
 # Redux 源码解析
 
-##  源码结构
+## 源码结构
 
 ```
 .src
@@ -50,9 +50,9 @@ export {
 };
 ```
 
-**isCrushed** 函数用于判断当前环境是否为  非发布环境下 isCrushed 是否被压缩了，如果被压缩的话会给开发者一个警告，这种提示在很多类库  都有。
+**isCrushed** 函数用于判断当前环境是否为 非发布环境下 isCrushed 是否被压缩了，如果被压缩的话会给开发者一个警告，这种提示在很多类库都有。
 
- 最后暴露 **createStore、combineReducers、bindActionCreators、applyMiddlewars、compose** 以及私有 actionType **\_\_DO_NOT_USE_ActionTypes** 给  开发者使用
+最后暴露 **createStore、combineReducers、bindActionCreators、applyMiddlewars、compose** 以及私有 actionType **\_\_DO_NOT_USE_ActionTypes** 给开发者使用
 
 ### creatStore.js
 
@@ -63,16 +63,16 @@ import ActionTypes from './utils/actionTypes'
 import isPlainObject from './utils/isPlainObject'
 
 /**
- * 这个函数用来创建一个 Redux store 来存放应用中的 state 树，调用 dispatch 是改变 state 的唯一方法，每个应用都应该只有一个 store， 你可以使用 combineReducers 来将多个 reducers 合并成单个 reducer 以区分不同的 state
+ * 这个函数用来创建一个 Redux store 来存放应用中的 state 树，调用 dispatch 是改变 state 的唯一方法，每个应用都应该只有一个 store，你可以使用 combineReducers 来将多个 reducers 合并成单个 reducer 以区分不同的 state
  *
  * @param {Function} reducer
- * 通过当前的 state 和 action 返回下一个 state 树
+ * 通过当前的 state 和 action 返回下一个 state 树
  *
  * @param {any} [preloadedState]
  * 初始化 state 数据，可选的参数，如果需要融合来自服务器的数据或者来自之前用户的 session 等情况下可以使用，如果你使用 combineReducers 来生成顶级 reducer ，那么 preloadedState 必须为对象
  *
  * @param {Function} [enhancer]
- * store 的增强器函数，可以指定为 第三方的中间件，时间旅行，持久化 等等，但是这个函数只能用 Redux 提供的 applyMiddleware 函数来生成；
+ * store 的增强器函数，可以指定为 第三方的中间件，时间旅行，持久化等等，但是这个函数只能用 Redux 提供的 applyMiddleware 函数来生成；
  *
  * @returns {Store} A Redux store that lets you read the state, dispatch actions
  * and subscribe to changes.
@@ -141,7 +141,7 @@ export default function createStore(reducer, preloadedState, enhancer) {
 }
 ```
 
-createStore 的  功能和参数在代码注释中已经解释了，接下来  看下里面实现的几个参数：
+createStore 的功能和参数在代码注释中已经解释了，接下来看下里面实现的几个参数：
 
 #### getState
 
@@ -159,7 +159,7 @@ function getState() {
 }
 ```
 
-从名字上就知道是返回当前 state 树，如果在 dispatching 中则会抛出错误；createStore 中的 currentState 存储当前的 state  树， 这是一个闭包，并且所有的  状态操作  都是在修改这个引用
+从名字上就知道是返回当前 state 树，如果在 dispatching 中则会抛出错误；createStore 中的 currentState 存储当前的 state树， 这是一个闭包，并且所有的状态操作都是在修改这个引用
 
 #### subscribe
 
@@ -200,11 +200,11 @@ function getState() {
   }
 ```
 
-这个 suscribe  函数可以给 store 状态添加 d 订阅监听函数，一旦调用 dispatch，所有的监听函数都会被执行；
+这个 suscribe函数可以给 store 状态添加 d 订阅监听函数，一旦调用 dispatch，所有的监听函数都会被执行；
 
-**ensureCanMutateNextListeners** 函数  调用时会判断 nextListeners 是否等于 currentListeners，相等则通过 slice 返回一个新的引用地址；
+**ensureCanMutateNextListeners** 函数调用时会判断 nextListeners 是否等于 currentListeners，相等则通过 slice 返回一个新的引用地址；
 
-调用 subscribe  会返回 **unsubscribe** 用于解绑监听函数钩子，通过 nextListeners 删除对应的函数来实现，同时在 **subscribe** 中定义了 **isSubscribed** 来判断是否已经解绑；
+调用 subscribe会返回 **unsubscribe** 用于解绑监听函数钩子，通过 nextListeners 删除对应的函数来实现，同时在 **subscribe** 中定义了 **isSubscribed** 来判断是否已经解绑；
 
 #### dispatch.js
 
@@ -245,7 +245,7 @@ function getState() {
   }
 ```
 
-dispatch  用于触发状态改变， 接受 action 作为参数，并判断 action  是否为对象（isPlainObject)且含有 type 属性，然后调用 **currentReducer** 来  生成新的状态，最后遍历监听函数的列表，依次执行并返回 action
+dispatch用于触发状态改变， 接受 action 作为参数，并判断 action是否为对象（isPlainObject)且含有 type 属性，然后调用 **currentReducer** 来 生成新的状态，最后遍历监听函数的列表，依次执行并返回 action
 
 #### replaceReducer
 
@@ -260,7 +260,7 @@ function replaceReducer(nextReducer) {
 }
 ```
 
-**replaceReducer**用于  替换当前 reducer 函数，如果项目中使用了代码分割并且想要动态加载 reducers ，那么这个函数就派上用场， 实现上很简单，只需要将 currentReducer 设置为出入的 nextReducer， 最后触发 ActionTypes.REPLACE 就完成了 状态树的初始化
+**replaceReducer**用于替换当前 reducer 函数，如果项目中使用了代码分割并且想要动态加载 reducers，那么这个函数就派上用场， 实现上很简单，只需要将 currentReducer 设置为出入的 nextReducer， 最后触发 ActionTypes.REPLACE 就完成了 状态树的初始化
 
 #### observable
 
@@ -291,7 +291,7 @@ function observable() {
 }
 ```
 
-**observable** 函数提供给其他观察者模式  或响应库使用[具体  文档](https://github.com/tc39/proposal-observable)
+**observable** 函数提供给其他观察者模式或响应库使用[具体文档](https://github.com/tc39/proposal-observable)
 
 ### compose.js
 
